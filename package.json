@@ -1,0 +1,21 @@
+{
+  "name": "men-stack-crud-app-lab",
+  "version": "1.0.0",
+  "description": "Full CRUD application using MEN stack (MongoDB, Express, Node, EJS)",
+  "homepage": "https://github.com/thara-messeroux/men-stack-crud-app-lab#readme",
+  "bugs": {
+    "url": "https://github.com/thara-messeroux/men-stack-crud-app-lab/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thara-messeroux/men-stack-crud-app-lab.git"
+  },
+  "license": "ISC",
+  "author": "Thara Messeroux",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  }
+}
