@@ -5,10 +5,15 @@ dotenv.config();
 // Import tools
 const express = require("express");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 // Create app
 const app = express();
 const PORT = 3000;
+
+// Middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
