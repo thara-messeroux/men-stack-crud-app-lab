@@ -73,6 +73,67 @@ This tool allows us to simulate those actions.
 These tools help our app support full CRUD:
 Create, Read, Update, Delete.
 
+## REST Patterns Used
+
+We are following two important backend patterns.
+
+---
+
+### 1️⃣ CRUD – Data Operations Model
+
+CRUD describes what we do to data.
+
+C = Create (add new data)  
+R = Read (view data)  
+U = Update (edit data)  
+D = Delete (remove data)
+
+Best used when:
+- Thinking about database operations
+- Talking about backend logic
+- Explaining what your app can do with data
+
+CRUD focuses on data behavior.
+
+---
+
+### 2️⃣ I.N.D.U.C.E.S – RESTful Route Pattern
+
+I.N.D.U.C.E.S describes how routes are structured in Express.
+
+I = Index (GET /movies)  
+N = New (GET /movies/new)  
+D = Delete (DELETE /movies/:id)  
+U = Update (PUT /movies/:id)  
+C = Create (POST /movies)  
+E = Edit (GET /movies/:id/edit)  
+S = Show (GET /movies/:id)
+
+Best used when:
+- Designing Express routes
+- Structuring URLs
+- Following RESTful architecture
+- Organizing controllers
+
+I.N.D.U.C.E.S focuses on route structure.
+
+---
+
+### When to Use Which?
+
+Use CRUD when thinking about:
+→ What action happens to the database.
+
+Use I.N.D.U.C.E.S when thinking about:
+→ What URL and HTTP method should be used.
+
+They describe the same actions,
+but from two different perspectives:
+Data view (CRUD)
+Route view (I.N.D.U.C.E.S)
+
+
+
 ## Step Log – EJS + Movie Model
 
 **What we did:** Enabled EJS and imported the Movie model into `server.js`.  
@@ -100,4 +161,10 @@ This is the "Index" part of REST (Read All).
 
 **What we did:** Added `GET /movies/new` and created `new.ejs`.  
 **Why:** This shows the form page so users can type a new movie.
+
+## Step Log – Create Route
+
+**What we did:** Added `POST /movies` to save a movie from the form.  
+**Why:** This completes the “Create” part of CRUD.
+
 

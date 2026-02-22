@@ -44,6 +44,15 @@ app.get("/movies/new", (req, res) => {
     res.render("movies/new");
 });
 
+// CREATE - save a new movie from the form
+app.post("/movies", async (req, res) => {
+    // req.body is the form data (example: { title: "Inception" })
+    await Movie.create(req.body);
+
+    // After saving, go back to the list page
+    res.redirect("/movies");
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
