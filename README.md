@@ -95,3 +95,9 @@ GET /movies
 3. The EJS page loops through the movies and prints each title.
 
 This is the "Index" part of REST (Read All).
+
+## Step Log – New Route
+
+**What we did:** Added `GET /movies/new` and created `new.ejs`.  
+**Why:** This shows the form page so users can type a new movie.
+

@@ -39,6 +39,10 @@ app.get("/movies", async (req, res) => {
     res.render("movies/index", { movies });
 });
 
+// NEW - show form to create a movie
+app.get("/movies/new", (req, res) => {
+    res.render("movies/new");
+});
 
 // Start server
 app.listen(PORT, () => {

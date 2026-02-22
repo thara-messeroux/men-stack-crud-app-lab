@@ -1,0 +1,32 @@
+<!-- Page title -->
+<h1>Add a Movie</h1>
+
+<!-- 
+  This is a form.
+  When the user clicks the button,
+  it sends data to /movies using POST.
+-->
+<form action="/movies" method="POST">
+
+    <!-- Label for the input field -->
+    <label>
+        Title:
+
+        <!-- 
+      This is a text input.
+      "name" is VERY important.
+      The server will receive it as:
+      req.body.title
+    -->
+        <input type="text" name="title" required />
+    </label>
+
+    <!-- Button to submit the form -->
+    <button type="submit">Add Movie</button>
+
+</form>
+
+<!-- Link to go back to the movie list -->
+<p>
+    <a href="/movies">Back to Movies</a>
+</p>
