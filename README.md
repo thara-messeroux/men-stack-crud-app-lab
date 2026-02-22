@@ -77,3 +77,21 @@ Create, Read, Update, Delete.
 
 **What we did:** Enabled EJS and imported the Movie model into `server.js`.  
 **Why:** So our routes can render pages and interact with the database.
+
+## Index Route – Show All Movies
+
+We created our first real CRUD route:
+
+GET /movies
+
+### What it does:
+- Finds all movies in the database
+- Sends them to an EJS page
+- Displays them in a list
+
+### How it works:
+1. `Movie.find({})` gets all movies from MongoDB.
+2. `res.render("movies/index", { movies })` sends them to the view.
+3. The EJS page loops through the movies and prints each title.
+
+This is the "Index" part of REST (Read All).
