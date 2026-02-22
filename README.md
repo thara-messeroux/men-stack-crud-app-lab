@@ -36,4 +36,23 @@ Our app can now communicate with a real cloud database.
 ### Engineering Rule
 Never hardcode database credentials. Use environment variables.
 
+## Movie Model (Schema)
+
+We created a Movie schema using Mongoose.
+
+A **schema** is a blueprint that defines:
+- What fields exist
+- What type they are
+- What rules they follow
+
+Our Movie includes:
+- title (required)
+- director
+- year
+- rating (1–10)
+- watched (default: false)
+
+We then created a Model from the schema and exported it so the server can use it.
+
+This ensures our database follows structure and rules.
 
