@@ -21,5 +21,19 @@ We prepared a clean Node project connected to GitHub.
 ### Engineering Rule
 Commit at clean checkpoints.
 
+## MongoDB Connected
+
+### What we did
+Connected our Express app to MongoDB Atlas using Mongoose and environment variables.
+
+### Why
+Our app can now communicate with a real cloud database.
+
+### Key Words
+**Mongoose** – Tool that connects JavaScript to MongoDB  
+**Environment Variables** – Secure way to store sensitive values  
+
+### Engineering Rule
+Never hardcode database credentials. Use environment variables.
 
 

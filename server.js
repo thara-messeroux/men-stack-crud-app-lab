@@ -1,11 +1,21 @@
-// Import express
+// Read .env variables
+const dotenv = require("dotenv");
+dotenv.config();
+
+// Import tools
 const express = require("express");
+const mongoose = require("mongoose");
 
-// Create express app
+// Create app
 const app = express();
-
-// Set port
 const PORT = 3000;
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI);
+
+mongoose.connection.on("connected", () => {
+    console.log("✅ Connected to MongoDB");
+});
 
 // Home route
 app.get("/", (req, res) => {
