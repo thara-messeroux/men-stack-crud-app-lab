@@ -1,0 +1,44 @@
+<!-- 
+  SHOW PAGE
+  This page displays ONE movie.
+  It receives a single movie object from:
+  res.render("movies/show", { movie })
+-->
+
+<!-- 
+  <%= %> means:
+  "Print this value on the page."
+-->
+<h1>
+    <%= movie.title %>
+</h1>
+
+<!-- 
+  movie.director || "Not listed"
+
+  This means:
+  If director exists → show it.
+  If it is empty or undefined → show "Not listed".
+
+  This prevents errors and keeps UI clean.
+-->
+<p>
+    Director: <%= movie.director || "Not listed" %>
+</p>
+
+<p>
+    Year: <%= movie.year || "Not listed" %>
+</p>
+
+<p>
+    Rating: <%= movie.rating || "Not rated" %>
+</p>
+
+<!-- 
+  Simple navigation link.
+  Good UX principle:
+  Always give users a way back.
+-->
+<p>
+    <a href="/movies">Back to Movies</a>
+</p>

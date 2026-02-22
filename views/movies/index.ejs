@@ -18,7 +18,9 @@
       "Show this value on the page."
     -->
         <li>
-            <%= movie.title %>
+            <a href="/movies/<%= movie._id %>">
+                <%= movie.title %>
+            </a>
         </li>
 
         <% }) %>
