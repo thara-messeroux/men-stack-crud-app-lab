@@ -72,3 +72,8 @@ This tool allows us to simulate those actions.
 ### Why this matters
 These tools help our app support full CRUD:
 Create, Read, Update, Delete.
+
+## Step Log – EJS + Movie Model
+
+**What we did:** Enabled EJS and imported the Movie model into `server.js`.  
+**Why:** So our routes can render pages and interact with the database.

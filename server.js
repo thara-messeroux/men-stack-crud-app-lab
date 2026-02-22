@@ -7,9 +7,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 
+// Import Model
+const Movie = require("./models/Movie");
+
 // Create app
 const app = express();
 const PORT = 3000;
+
+// View engine (EJS pages)
+app.set("view engine", "ejs");
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
