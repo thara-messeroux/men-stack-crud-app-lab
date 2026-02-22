@@ -33,6 +33,13 @@ app.get("/", (req, res) => {
     res.send("MEN Stack App Running");
 });
 
+// INDEX - show all movies
+app.get("/movies", async (req, res) => {
+    const movies = await Movie.find({});
+    res.render("movies/index", { movies });
+});
+
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

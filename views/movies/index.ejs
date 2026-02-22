@@ -1,0 +1,26 @@
+<!-- Big title at the top of the page -->
+<h1>Movies</h1>
+
+<!-- Start an unordered list -->
+<ul>
+
+    <!-- 
+    This is EJS JavaScript code.
+    It loops through every movie we sent from the server.
+    "movies" is an array from:
+    res.render("movies/index", { movies });
+  -->
+    <% movies.forEach((movie)=> { %>
+
+        <!-- 
+      This prints the movie title.
+      <%= %> means:
+      "Show this value on the page."
+    -->
+        <li>
+            <%= movie.title %>
+        </li>
+
+        <% }) %>
+
+</ul>
