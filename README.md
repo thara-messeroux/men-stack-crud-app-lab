@@ -56,3 +56,19 @@ We then created a Model from the schema and exported it so the server can use it
 
 This ensures our database follows structure and rules.
 
+## Middleware
+
+We added two small tools to help our app handle forms correctly.
+
+### express.urlencoded()
+This lets our server read information from forms.
+Without it, the server cannot understand form data.
+
+### method-override
+Forms can only send GET and POST.
+But a CRUD app also needs PUT and DELETE.
+This tool allows us to simulate those actions.
+
+### Why this matters
+These tools help our app support full CRUD:
+Create, Read, Update, Delete.
