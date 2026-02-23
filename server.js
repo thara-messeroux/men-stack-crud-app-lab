@@ -69,6 +69,13 @@ app.get("/movies/:id/edit", async (req, res) => {
     res.render("movies/edit", { movie });
 });
 
+// UPDATE - save edited movie
+app.put("/movies/:id", async (req, res) => {
+    await Movie.findByIdAndUpdate(req.params.id, req.body);
+
+    res.redirect(`/movies/${req.params.id}`);
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

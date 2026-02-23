@@ -249,3 +249,20 @@ This is the "Index" part of REST (Read All).
 
 **What we did:** Added GET /movies/:id/edit to show edit form.  
 **Why:** This allows users to modify existing movie data.
+
+## Update Route – Save Edited Movie
+
+### Route
+PUT  
+http://localhost:3000/movies/:id
+
+### What It Does
+Updates an existing movie in MongoDB using its ID.
+
+### How to Test
+1. Open `/movies`
+2. Open a movie
+3. Go to `/movies/:id/edit`
+4. Change title
+5. Click Save
+6. Confirm title updated
