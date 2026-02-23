@@ -42,3 +42,12 @@
 <p>
     <a href="/movies">Back to Movies</a>
 </p>
+
+<!-- 
+  Delete form:
+  HTML forms cannot send DELETE directly,
+  so we use method-override to simulate it.
+-->
+<form action="/movies/<%= movie._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete Movie</button>
+</form>

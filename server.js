@@ -76,6 +76,13 @@ app.put("/movies/:id", async (req, res) => {
     res.redirect(`/movies/${req.params.id}`);
 });
 
+// DELETE - remove a movie
+app.delete("/movies/:id", async (req, res) => {
+    await Movie.findByIdAndDelete(req.params.id);
+
+    res.redirect("/movies");
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

@@ -266,3 +266,18 @@ Updates an existing movie in MongoDB using its ID.
 4. Change title
 5. Click Save
 6. Confirm title updated
+
+## Delete Route – Remove a Movie
+
+### Route
+DELETE  
+http://localhost:3000/movies/:id
+
+### What It Does
+Deletes one movie from MongoDB using its ID.
+
+### How to Test
+1. Go to http://localhost:3000/movies
+2. Click a movie title
+3. Click "Delete Movie"
+4. Confirm you return to /movies and the movie is gone
