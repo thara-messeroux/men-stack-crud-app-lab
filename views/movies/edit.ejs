@@ -1,0 +1,22 @@
+<!-- EDIT PAGE -->
+<h1>Edit Movie</h1>
+
+<!-- 
+  This form will update an existing movie.
+  We will later enable PUT using method-override.
+-->
+<form action="/movies/<%= movie._id %>?_method=PUT" method="POST">
+
+    <!-- Pre-fill input with existing movie title -->
+    <label>
+        Title:
+        <input type="text" name="title" value="<%= movie.title %>" required />
+    </label>
+
+    <button type="submit">Save Changes</button>
+
+</form>
+
+<p>
+    <a href="/movies/<%= movie._id %>">Cancel</a>
+</p>

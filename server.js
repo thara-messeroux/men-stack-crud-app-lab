@@ -62,6 +62,13 @@ app.get("/movies/:id", async (req, res) => {
     res.render("movies/show", { movie });
 });
 
+// EDIT - show form to edit a movie
+app.get("/movies/:id/edit", async (req, res) => {
+    const movie = await Movie.findById(req.params.id);
+
+    res.render("movies/edit", { movie });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

@@ -245,4 +245,7 @@ This is the "Index" part of REST (Read All).
 **What we did:** Added `POST /movies` to save a movie from the form.  
 **Why:** This completes the “Create” part of CRUD.
 
+## Step Log – Edit Route
 
+**What we did:** Added GET /movies/:id/edit to show edit form.  
+**Why:** This allows users to modify existing movie data.
