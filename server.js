@@ -35,8 +35,13 @@ app.get("/", (req, res) => {
 
 // INDEX - show all movies
 app.get("/movies", async (req, res) => {
-    const movies = await Movie.find({});
-    res.render("movies/index", { movies });
+    try {
+        const movies = await Movie.find({});
+        res.render("movies/index", { movies });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 });
 
 // NEW - show form to create a movie
