@@ -51,11 +51,13 @@ app.get("/movies/new", (req, res) => {
 
 // CREATE - save a new movie from the form
 app.post("/movies", async (req, res) => {
-    // req.body is the form data (example: { title: "Inception" })
-    await Movie.create(req.body);
-
-    // After saving, go back to the list page
-    res.redirect("/movies");
+    try {
+        await Movie.create(req.body);
+        res.redirect("/movies");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 });
 
 // SHOW - show one movie

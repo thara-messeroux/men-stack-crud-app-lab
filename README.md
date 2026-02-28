@@ -295,10 +295,32 @@ If a database operation fails:
 2. Confirm the Movies page loads normally
 3. (Optional) If you temporarily turn off MongoDB or break your connection string `const movies = await Movie.find({});` -> 
         `const movies = await Movie.find({ invalidField: { $badOperator: true } });)`, confirm you get "Server Error" instead of the server crashing
-        
+
 ### How to Test Error Handling (INDEX Route)
 
 1. Temporarily break the query inside the `/movies` route:
 
 ```js
 const movies = await Movie.find({ invalidField: { $badOperator: true } });
+
+## CREATE Route – Error Handling Added
+
+The CREATE route is wrapped in a `try/catch` block to prevent the server from crashing if MongoDB fails.
+
+If movie creation fails:
+- The error is logged using `console.error(error)`
+- The server responds safely with `res.status(500).send("Server Error")`
+
+---
+
+### How to Test (CREATE Route)
+
+1. Go to:  
+   http://localhost:3000/movies/new
+
+2. Enter a movie title and click **Add Movie**
+
+3. Confirm you are redirected to:  
+   http://localhost:3000/movies
+
+4. Confirm the new movie appears in the list
