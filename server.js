@@ -73,9 +73,13 @@ app.get("/movies/:id", async (req, res) => {
 
 // EDIT - show form to edit a movie
 app.get("/movies/:id/edit", async (req, res) => {
-    const movie = await Movie.findById(req.params.id);
-
-    res.render("movies/edit", { movie });
+    try {
+        const movie = await Movie.findById(req.params.id);
+        res.render("movies/edit", { movie });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 });
 
 // UPDATE - save edited movie
