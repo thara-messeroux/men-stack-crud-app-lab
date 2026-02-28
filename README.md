@@ -282,65 +282,70 @@ Deletes one movie from MongoDB using its ID.
 3. Click "Delete Movie"
 4. Confirm you return to /movies and the movie is gone
 
-## Error Handling (try/catch)
+## Error Handling (Production-Safe Backend)
 
-All async routes are wrapped in `try/catch` blocks so the server doesn’t crash if MongoDB fails.
+All async routes in this application are wrapped in try/catch blocks:
 
-If a database operation fails:
-- We log the error with `console.error(error)`
-- We respond safely with `res.status(500).send("Server Error")`
+- INDEX – GET http://localhost:3000/movies  
+- CREATE – POST http://localhost:3000/movies  
+- SHOW – GET http://localhost:3000/movies/<movieId>  
+- EDIT – GET http://localhost:3000/movies/<movieId>/edit  
+- UPDATE – PUT http://localhost:3000/movies/<movieId>  
+- DELETE – DELETE http://localhost:3000/movies/<movieId>  
 
-### How to Test
-1. Go to http://localhost:3000/movies
-2. Confirm the Movies page loads normally
-3. (Optional) If you temporarily turn off MongoDB or break your connection string `const movies = await Movie.find({});` -> 
-        `const movies = await Movie.find({ invalidField: { $badOperator: true } });)`, confirm you get "Server Error" instead of the server crashing
+If a MongoDB operation fails:
+- The error is logged using console.error(error)
+- The server responds safely with status 500 and displays "Server Error"
 
-### How to Test Error Handling (INDEX Route)
-
-1. Temporarily break the query inside the `/movies` route:
-
-```js
-const movies = await Movie.find({ invalidField: { $badOperator: true } });
-
-## CREATE Route – Error Handling Added
-
-The CREATE route is wrapped in a `try/catch` block to prevent the server from crashing if MongoDB fails.
-
-If movie creation fails:
-- The error is logged using `console.error(error)`
-- The server responds safely with `res.status(500).send("Server Error")`
+This ensures the application fails safely instead of crashing or hanging.
 
 ---
 
-### How to Test (CREATE Route)
+### How to Test (Normal Functionality)
 
-1. Go to:  
-   http://localhost:3000/movies/new
+1. Start the server:
+   npm start
 
-2. Enter a movie title and click **Add Movie**
+2. Visit:
+   Home: http://localhost:3000/
+   Movies Index: http://localhost:3000/movies
+   New Movie Form: http://localhost:3000/movies/new
 
-3. Confirm you are redirected to:  
-   http://localhost:3000/movies
+3. Click a movie to test:
+   Show: http://localhost:3000/movies/<movieId>
 
-4. Confirm the new movie appears in the list
+4. Edit a movie:
+   Edit: http://localhost:3000/movies/<movieId>/edit
 
-## SHOW Route – Error Handling Added
-
-The SHOW route is wrapped in a `try/catch` block so the app fails safely if MongoDB cannot find or return the movie.
-
-If the database operation fails:
-- The error is logged using `console.error(error)`
-- The server responds safely with `res.status(500).send("Server Error")`
+5. Confirm:
+   - Pages load correctly
+   - No crashes
+   - Data updates properly
 
 ---
 
-### How to Test (SHOW Route)
+### How to Force Test Error Handling (Optional)
 
-1. Go to:  
+1. Temporarily break a query in any async route.
+   Example inside INDEX route:
+
+   const movies = await Movie.find({ invalidField: { $badOperator: true } });
+
+2. Restart server:
+   npm start
+
+3. Visit:
    http://localhost:3000/movies
 
-2. Click any movie title
+4. Confirm:
+   - Page displays "Server Error"
+   - Server does NOT crash
+   - Terminal logs the error
 
-3. Confirm the show page loads at a URL like:  
-   http://localhost:3000/movies/<movieId>
+5. Restore original query:
+   const movies = await Movie.find({});
+
+
+
+
+
