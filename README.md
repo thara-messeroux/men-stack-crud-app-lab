@@ -281,3 +281,16 @@ Deletes one movie from MongoDB using its ID.
 2. Click a movie title
 3. Click "Delete Movie"
 4. Confirm you return to /movies and the movie is gone
+
+## Error Handling (try/catch)
+
+All async routes are wrapped in `try/catch` blocks so the server doesn’t crash if MongoDB fails.
+
+If a database operation fails:
+- We log the error with `console.error(error)`
+- We respond safely with `res.status(500).send("Server Error")`
+
+### How to Test
+1. Go to http://localhost:3000/movies
+2. Confirm the Movies page loads normally
+3. (Optional) If you temporarily turn off MongoDB or break your connection string, confirm you get "Server Error" instead of the server crashing
