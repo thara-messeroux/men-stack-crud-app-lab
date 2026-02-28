@@ -84,16 +84,24 @@ app.get("/movies/:id/edit", async (req, res) => {
 
 // UPDATE - save edited movie
 app.put("/movies/:id", async (req, res) => {
-    await Movie.findByIdAndUpdate(req.params.id, req.body);
-
-    res.redirect(`/movies/${req.params.id}`);
+    try {
+        await Movie.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect(`/movies/${req.params.id}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 });
 
 // DELETE - remove a movie
 app.delete("/movies/:id", async (req, res) => {
-    await Movie.findByIdAndDelete(req.params.id);
-
-    res.redirect("/movies");
+    try {
+        await Movie.findByIdAndDelete(req.params.id);
+        res.redirect("/movies");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 });
 
 // Start server
