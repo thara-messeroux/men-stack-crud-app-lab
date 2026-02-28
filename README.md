@@ -293,4 +293,12 @@ If a database operation fails:
 ### How to Test
 1. Go to http://localhost:3000/movies
 2. Confirm the Movies page loads normally
-3. (Optional) If you temporarily turn off MongoDB or break your connection string, confirm you get "Server Error" instead of the server crashing
+3. (Optional) If you temporarily turn off MongoDB or break your connection string `const movies = await Movie.find({});` -> 
+        `const movies = await Movie.find({ invalidField: { $badOperator: true } });)`, confirm you get "Server Error" instead of the server crashing
+        
+### How to Test Error Handling (INDEX Route)
+
+1. Temporarily break the query inside the `/movies` route:
+
+```js
+const movies = await Movie.find({ invalidField: { $badOperator: true } });
