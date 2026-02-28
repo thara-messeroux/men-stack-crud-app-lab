@@ -62,11 +62,13 @@ app.post("/movies", async (req, res) => {
 
 // SHOW - show one movie
 app.get("/movies/:id", async (req, res) => {
-    // req.params.id = the movie's unique ID from the URL
-    const movie = await Movie.findById(req.params.id);
-
-    // Send that one movie to the show page
-    res.render("movies/show", { movie });
+    try {
+        const movie = await Movie.findById(req.params.id);
+        res.render("movies/show", { movie });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 });
 
 // EDIT - show form to edit a movie

@@ -324,3 +324,23 @@ If movie creation fails:
    http://localhost:3000/movies
 
 4. Confirm the new movie appears in the list
+
+## SHOW Route – Error Handling Added
+
+The SHOW route is wrapped in a `try/catch` block so the app fails safely if MongoDB cannot find or return the movie.
+
+If the database operation fails:
+- The error is logged using `console.error(error)`
+- The server responds safely with `res.status(500).send("Server Error")`
+
+---
+
+### How to Test (SHOW Route)
+
+1. Go to:  
+   http://localhost:3000/movies
+
+2. Click any movie title
+
+3. Confirm the show page loads at a URL like:  
+   http://localhost:3000/movies/<movieId>
