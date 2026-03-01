@@ -14,12 +14,18 @@ const Movie = require("./models/Movie");
 const app = express();
 const PORT = 3000;
 
+// Import controllers
+const authController = require("./controllers/auth");
+
 // View engine (EJS pages)
 app.set("view engine", "ejs");
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
+
+// Use controllers
+app.use("/auth", authController);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
@@ -102,15 +108,6 @@ app.delete("/movies/:id", async (req, res) => {
         console.error(error);
         res.status(500).send("Server Error");
     }
-});
-
-// TEMP auth view routes (we'll move to controllers in Step 4)
-app.get("/auth/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs");
-});
-
-app.get("/auth/sign-in", (req, res) => {
-    res.render("auth/sign-in.ejs");
 });
 
 // Start server
