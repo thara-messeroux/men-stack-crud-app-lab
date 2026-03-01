@@ -346,6 +346,16 @@ This ensures the application fails safely instead of crashing or hanging.
    const movies = await Movie.find({});
 
 
+## Authentication Structure Started
 
+We began refactoring toward MVC by creating an auth controller.
+
+Auth routes are now separated from server.js:
+
+- controllers/auth.js handles:
+  - GET /auth/sign-up
+  - GET /auth/sign-in
+
+This keeps server.js cleaner and prepares for scaling.
 
 
