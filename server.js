@@ -104,6 +104,15 @@ app.delete("/movies/:id", async (req, res) => {
     }
 });
 
+// TEMP auth view routes (we'll move to controllers in Step 4)
+app.get("/auth/sign-up", (req, res) => {
+    res.render("auth/sign-up.ejs");
+});
+
+app.get("/auth/sign-in", (req, res) => {
+    res.render("auth/sign-in.ejs");
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
