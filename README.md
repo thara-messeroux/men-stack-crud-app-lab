@@ -358,4 +358,28 @@ Auth routes are now separated from server.js:
 
 This keeps server.js cleaner and prepares for scaling.
 
+## Authentication (Sessions + Password Hashing)
+
+### Password Security
+- Uses bcrypt to hash passwords before storing in MongoDB
+- Plain text passwords are never saved
+- Salt rounds: 10
+
+### Session Setup
+- Installed express-session
+- Added SESSION_SECRET in .env
+- Enabled session middleware in server.js
+
+### Sign Up Flow
+1. Validate password match
+2. Check username uniqueness
+3. Hash password
+4. Create user in database
+5. Store user._id in req.session.user
+6. Redirect to home page
+
+### Session Verification
+- Temporary debug route used to confirm session storage
+- Confirmed req.session.user stores MongoDB ObjectId
+
 
