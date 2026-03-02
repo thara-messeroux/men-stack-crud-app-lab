@@ -382,4 +382,12 @@ This keeps server.js cleaner and prepares for scaling.
 - Temporary debug route used to confirm session storage
 - Confirmed req.session.user stores MongoDB ObjectId
 
+### Sign In Flow
+1. Find user by username
+2. Compare password with bcrypt (hashed)
+3. If valid, store user._id in req.session.user
+4. Redirect to /
 
+### Debug
+- GET /debug-session shows the current session object
+- Success looks like: { user: "<mongoId>" }
