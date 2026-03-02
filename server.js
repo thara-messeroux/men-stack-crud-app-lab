@@ -41,6 +41,12 @@ app.use(
     })
 );
 
+// Make session user available in all views
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    next();
+});
+
 // 9) Use controllers
 app.use("/auth", authController);
 
@@ -57,7 +63,7 @@ mongoose.connection.on("connected", () => {
 
 // HOME — quick sanity check
 app.get("/", (req, res) => {
-    res.send("MEN Stack App Running");
+    res.render("index");
 });
 
 // ======================
@@ -138,11 +144,13 @@ app.delete("/movies/:id", isSignedIn, async (req, res) => {
 /* To test that sessions are working, you can visit http://localhost:3000/debug-session 
 in your browser after signing up or signing in. You should see the session data, 
 including the user ID if you're logged in.
-*/
+
 
 app.get("/debug-session", (req, res) => {
     res.send(req.session);
 });
+
+*/
 
 // ======================
 // START SERVER

@@ -1,0 +1,21 @@
+<!-- views/index.ejs, the home page -->
+<!--
+  This is the home page of our app.
+  It is rendered by the route:
+  app.get("/", (req, res) => {
+    res.render("index");
+  });
+-->
+<h1>MEN Stack App Running</h1>
+
+<% if (user) { %>
+    <p>Logged in as: <%= user %>
+    </p>
+    <a href="/auth/sign-out">Sign out</a>
+    <br /><br />
+    <a href="/movies">Go to Movies</a>
+    <% } else { %>
+        <a href="/auth/sign-up">Sign up</a>
+        <span> | </span>
+        <a href="/auth/sign-in">Sign in</a>
+        <% } %>
