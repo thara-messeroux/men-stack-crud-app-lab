@@ -17,7 +17,11 @@ const authController = require("./controllers/auth");
 
 // 4) Create app
 const app = express();
+
 const PORT = 3000;
+
+const isSignedIn = require("./middleware/is-signed-in");
+
 
 // 5) View engine (EJS)
 app.set("view engine", "ejs");
@@ -61,7 +65,7 @@ app.get("/", (req, res) => {
 // ======================
 
 // INDEX — list all movies
-app.get("/movies", async (req, res) => {
+app.get("/movies", isSignedIn, async (req, res) => {
     try {
         const movies = await Movie.find({});
         res.render("movies/index", { movies });
@@ -72,12 +76,12 @@ app.get("/movies", async (req, res) => {
 });
 
 // NEW — show form to create a movie
-app.get("/movies/new", (req, res) => {
+app.get("/movies/new", isSignedIn, (req, res) => {
     res.render("movies/new");
 });
 
 // CREATE — save a new movie from the form
-app.post("/movies", async (req, res) => {
+app.post("/movies", isSignedIn, async (req, res) => {
     try {
         await Movie.create(req.body);
         res.redirect("/movies");
@@ -88,7 +92,7 @@ app.post("/movies", async (req, res) => {
 });
 
 // SHOW — show one movie
-app.get("/movies/:id", async (req, res) => {
+app.get("/movies/:id", isSignedIn, async (req, res) => {
     try {
         const movie = await Movie.findById(req.params.id);
         res.render("movies/show", { movie });
@@ -99,7 +103,7 @@ app.get("/movies/:id", async (req, res) => {
 });
 
 // EDIT — show form to edit a movie
-app.get("/movies/:id/edit", async (req, res) => {
+app.get("/movies/:id/edit", isSignedIn, async (req, res) => {
     try {
         const movie = await Movie.findById(req.params.id);
         res.render("movies/edit", { movie });
@@ -110,7 +114,7 @@ app.get("/movies/:id/edit", async (req, res) => {
 });
 
 // UPDATE — update movie in database
-app.put("/movies/:id", async (req, res) => {
+app.put("/movies/:id", isSignedIn, async (req, res) => {
     try {
         await Movie.findByIdAndUpdate(req.params.id, req.body);
         res.redirect(`/movies/${req.params.id}`);
@@ -121,7 +125,7 @@ app.put("/movies/:id", async (req, res) => {
 });
 
 // DELETE — delete movie from database
-app.delete("/movies/:id", async (req, res) => {
+app.delete("/movies/:id", isSignedIn, async (req, res) => {
     try {
         await Movie.findByIdAndDelete(req.params.id);
         res.redirect("/movies");
@@ -130,6 +134,7 @@ app.delete("/movies/:id", async (req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
 /* To test that sessions are working, you can visit http://localhost:3000/debug-session 
 in your browser after signing up or signing in. You should see the session data, 
 including the user ID if you're logged in.
@@ -138,7 +143,6 @@ including the user ID if you're logged in.
 app.get("/debug-session", (req, res) => {
     res.send(req.session);
 });
-
 
 // ======================
 // START SERVER
