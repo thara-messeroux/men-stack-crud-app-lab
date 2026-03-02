@@ -391,3 +391,18 @@ This keeps server.js cleaner and prepares for scaling.
 ### Debug
 - GET /debug-session shows the current session object
 - Success looks like: { user: "<mongoId>" }
+
+## Auth + Sessions
+
+### Features
+- Users can sign up with a username + password
+- Passwords are hashed with bcrypt
+- Sessions are enabled with express-session
+- Logged-in user id is stored in the session: `req.session.user`
+- `res.locals.user` is set so views can show login state
+- Movie routes are protected by `isSignedIn` middleware
+
+### How to Run
+1. Install deps:
+   ```bash
+   npm install

@@ -11,28 +11,28 @@ const session = require("express-session");
 
 // 2) Models
 const Movie = require("./models/Movie");
+const User = require("./models/User"); // 
 
 // 3) Controllers (routes files)
 const authController = require("./controllers/auth");
 
-// 4) Create app
-const app = express();
-
-const PORT = 3000;
-
+// 4) Middleware
 const isSignedIn = require("./middleware/is-signed-in");
 
+// 5) Create app
+const app = express();
+const PORT = 3000;
 
-// 5) View engine (EJS)
+// 6) View engine (EJS)
 app.set("view engine", "ejs");
 
-// 6) Middleware: read form data (req.body)
+// 7) Middleware: read form data (req.body)
 app.use(express.urlencoded({ extended: false }));
 
-// 7) Middleware: allow PUT/DELETE from forms via ?_method=
+// 8) Middleware: allow PUT/DELETE from forms via ?_method=
 app.use(methodOverride("_method"));
 
-// 8) Middleware: enable sessions (must be BEFORE routes)
+// 9) Middleware: enable sessions (must be BEFORE routes)
 app.use(
     session({
         secret: process.env.SESSION_SECRET, // secret for signing the session cookie
@@ -41,16 +41,27 @@ app.use(
     })
 );
 
-// Make session user available in all views
-app.use((req, res, next) => {
-    res.locals.user = req.session.user || null;
-    next();
+// 10) Make session user available in all views (res.locals.user)
+app.use(async (req, res, next) => { // (fixed: no nesting app.use inside app.use)
+    try { // (added try/catch so errors don't crash the server)
+        if (req.session.user) {
+            const foundUser = await User.findById(req.session.user);
+            res.locals.user = foundUser;
+        } else {
+            res.locals.user = null;
+        }
+        next();
+    } catch (err) {
+        console.log(err);
+        res.locals.user = null;
+        next();
+    }
 });
 
-// 9) Use controllers
+// 11) Use controllers
 app.use("/auth", authController);
 
-// 10) Connect to MongoDB
+// 12) Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on("connected", () => {
@@ -61,7 +72,7 @@ mongoose.connection.on("connected", () => {
 // ROUTES
 // ======================
 
-// HOME — quick sanity check
+// HOME — renders views/index.ejs
 app.get("/", (req, res) => {
     res.render("index");
 });
@@ -141,16 +152,11 @@ app.delete("/movies/:id", isSignedIn, async (req, res) => {
     }
 });
 
-/* To test that sessions are working, you can visit http://localhost:3000/debug-session 
-in your browser after signing up or signing in. You should see the session data, 
-including the user ID if you're logged in.
-
-
-app.get("/debug-session", (req, res) => {
-    res.send(req.session);
-});
-
-*/
+// Debug route (optional) — remove when done
+// (uncomment if you want it back)
+// app.get("/debug-session", (req, res) => {
+//   res.send(req.session);
+// });
 
 // ======================
 // START SERVER
@@ -158,3 +164,28 @@ app.get("/debug-session", (req, res) => {
 app.listen(PORT, () => {
     console.log(`✅ Server running on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

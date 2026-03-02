@@ -9,8 +9,9 @@
 <h1>MEN Stack App Running</h1>
 
 <% if (user) { %>
-    <p>Logged in as: <%= user %>
+    <p>Logged in as: <%= user.username %>
     </p>
+
     <a href="/auth/sign-out">Sign out</a>
     <br /><br />
     <a href="/movies">Go to Movies</a>
