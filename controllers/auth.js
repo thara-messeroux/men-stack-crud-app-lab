@@ -16,8 +16,7 @@ router.get("/sign-in", (req, res) => {
     res.render("auth/sign-in.ejs");
 });
 
-
-// POST sign-up form
+// POST sign up form
 router.post("/sign-up", async (req, res) => {
     try {
         const { username, password, confirmPassword } = req.body;
@@ -36,13 +35,16 @@ router.post("/sign-up", async (req, res) => {
         // 3) hash password
         const hashedPassword = bcrypt.hashSync(password, 10);
 
-        // 4) create user
-        await User.create({
+        // 4) create user in DB
+        const newUser = await User.create({
             username,
             password: hashedPassword,
         });
 
-        // 5) redirect home
+        // 5) save user id in session (this is the missing piece)
+        req.session.user = newUser._id;
+
+        // 6) redirect after session is set
         res.redirect("/");
     } catch (err) {
         console.log(err);

@@ -131,6 +131,10 @@ app.delete("/movies/:id", async (req, res) => {
     }
 });
 
+app.get("/debug-session", (req, res) => {
+    res.send(req.session);
+});
+
 // ======================
 // START SERVER
 // ======================
