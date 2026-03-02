@@ -1,22 +1,20 @@
 // controllers/auth.js
-
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
-
-// GET sign-up page
+// GET /auth/sign-up
 router.get("/sign-up", (req, res) => {
     res.render("auth/sign-up.ejs");
 });
 
-// GET sign-in page
+// GET /auth/sign-in
 router.get("/sign-in", (req, res) => {
     res.render("auth/sign-in.ejs");
 });
 
-// POST sign up form
+// POST /auth/sign-up
 router.post("/sign-up", async (req, res) => {
     try {
         const { username, password, confirmPassword } = req.body;
@@ -35,16 +33,16 @@ router.post("/sign-up", async (req, res) => {
         // 3) hash password
         const hashedPassword = bcrypt.hashSync(password, 10);
 
-        // 4) create user in DB
+        // 4) create user
         const newUser = await User.create({
             username,
             password: hashedPassword,
         });
 
-        // 5) save user id in session (this is the missing piece)
+        // 5) save user id in session
         req.session.user = newUser._id;
 
-        // 6) redirect after session is set
+        // 6) go home
         res.redirect("/");
     } catch (err) {
         console.log(err);
@@ -52,6 +50,32 @@ router.post("/sign-up", async (req, res) => {
     }
 });
 
-// POST sign-in form
+// POST /auth/sign-in
+router.post("/sign-in", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        // 1) find user
+        const userInDatabase = await User.findOne({ username });
+        if (!userInDatabase) {
+            return res.send("Invalid username or password");
+        }
+
+        // 2) compare passwords
+        const validPassword = bcrypt.compareSync(password, userInDatabase.password);
+        if (!validPassword) {
+            return res.send("Invalid username or password");
+        }
+
+        // 3) save user id in session
+        req.session.user = userInDatabase._id;
+
+        // 4) go home
+        res.redirect("/");
+    } catch (err) {
+        console.log(err);
+        res.send("Something went wrong during sign in");
+    }
+});
 
 module.exports = router;

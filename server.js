@@ -133,11 +133,12 @@ app.delete("/movies/:id", async (req, res) => {
 /* To test that sessions are working, you can visit http://localhost:3000/debug-session 
 in your browser after signing up or signing in. You should see the session data, 
 including the user ID if you're logged in.
+*/
 
 app.get("/debug-session", (req, res) => {
     res.send(req.session);
 });
-*/
+
 
 // ======================
 // START SERVER
